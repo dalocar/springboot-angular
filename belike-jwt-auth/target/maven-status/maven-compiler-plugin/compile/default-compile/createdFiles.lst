@@ -1,0 +1,14 @@
+com\belikesoftware\security\JwtAuthenticationResponse.class
+com\belikesoftware\security\model\Authority.class
+com\belikesoftware\security\service\JwtUserDetailsServiceImpl.class
+com\belikesoftware\security\model\AuthorityName.class
+com\belikesoftware\security\JwtAuthenticationTokenFilter.class
+com\belikesoftware\security\JwtTokenUtil.class
+com\belikesoftware\security\model\AuthUser.class
+com\belikesoftware\security\JwtUserFactory.class
+com\belikesoftware\security\JwtAuthenticationEntryPoint.class
+com\belikesoftware\security\JwtAuthenticationRequest.class
+com\belikesoftware\security\JwtUser.class
+com\belikesoftware\security\config\WebSecurityConfig.class
+com\belikesoftware\security\repository\UserAuthRepository.class
+com\belikesoftware\security\controller\AuthenticationRestController.class
