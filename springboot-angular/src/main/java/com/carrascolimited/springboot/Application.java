@@ -12,8 +12,8 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.carrascolimited.springboot, com.belikesoftware.security.config")
-@EnableJpaRepositories(basePackages = { "com.carrascolimited.springboot.repo" } )
-@EntityScan(basePackages = { "com.carrascolimited.springboot.domain" })
+@EnableJpaRepositories(basePackages = { "com.carrascolimited.springboot.repo" })
+@EntityScan(basePackages = { "com.carrascolimited.springboot.domain", "com.belikesoftware.security.model" })
 public class Application {
 
 	public static void main(String[] args) {

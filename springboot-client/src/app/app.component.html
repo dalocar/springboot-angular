@@ -1,6 +1,58 @@
-<nav>
+
+<mat-drawer-container class="example-container" fullscreen>
+	<mat-drawer  mode="side" opened>   
+	<mat-toolbar>
+		<button mat-icon-button [matMenuTriggerFor]="menu">
+  			<mat-icon>more_vert</mat-icon>
+		</button>
+	
+	<mat-form-field>
+    	  <input matInput (keyup)="applyFilter($event.target.value)" class="menu-search-input">
+    	   <mat-placeholder color="#FFFFFF">Buscar</mat-placeholder>
+    </mat-form-field>
+	
+		<button mat-icon-button style="float:right">
+  			<mat-icon>search</mat-icon>
+		</button>
+		<mat-menu #menu="matMenu">
+  			<button mat-menu-item (click)="selectCategory('users')">
+  				<mat-icon>account_box</mat-icon>
+  				<span>Usuarios</span>
+  			</button>
+  			<button mat-menu-item routerLink="/invoice" routerLinkActive="active" >
+  				<mat-icon>store</mat-icon>
+  				<span>Facturas</span>
+  			</button>
+  			<button mat-menu-item (click)="selectCategory('customers')">
+  				<mat-icon>account_circle</mat-icon>
+  				<span>Clientes</span>
+  			</button>  		
+		</mat-menu>
+	</mat-toolbar> 	
+	<mat-list role="list" *ngIf="selected == 'users'">
+		<h1>Usuarios</h1>  		
+		<mat-list-item *ngFor="let user of users">
+			<a routerLink="/users/list" routerLinkActive="active">
+				<mat-icon class="mat-menu-item">face</mat-icon>
+				<span matTooltip="{{user.userName}}">{{user.firstName}} {{user.lastName}}</span>
+			</a>
+		</mat-list-item>
+	</mat-list>  
+	<mat-list role="list" *ngIf="selected == 'customers'">  
+		<h1>Clientes</h1>
+		<mat-list-item *ngFor="let customer of customers">
+			<a (click)="editCustomerPage(customer)">
+				<mat-icon class="mat-menu-item">face</mat-icon>
+				<span matTooltip="{{customer.name+'\n'}}{{customer.address}}">{{customer.id}}-{{customer.name | ucwords | shorten: 20: '...' }}</span>
+			</a> 
+		</mat-list-item>
+	</mat-list>  
+ 	</mat-drawer> 
   
-  <a *ngIf="isLoggedIn()" routerLink="/login" routerLinkActive="active" >Logout</a>
-  <a *ngIf="isLoggedIn()" routerLink="/users/list" routerLinkActive="active">Users</a>  
-</nav>
-<router-outlet></router-outlet>
+  	<mat-drawer-content>  		
+		<router-outlet></router-outlet>		  
+  	</mat-drawer-content>
+ </mat-drawer-container>
+ 	
+  
+  

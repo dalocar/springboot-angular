@@ -1,0 +1,106 @@
+.mat-toolbar {
+	background: #3f51b5;
+}
+
+button {
+	background: transparent;
+	border: none;
+}
+
+.mat-icon {
+	width: 32px;
+	height: 32px;
+	font-size: 32px;
+	color: white;
+}
+.mat-list-item  a {	
+	width: 100%; 
+	line-height: 48px;
+}
+.mat-list-item .mat-icon {
+    color: rgba(0,0,0,.54);
+    height: 48px;
+    float: left;
+}
+.mat-list-item span {
+	font-size: 15px;
+}
+
+.mat-drawer {
+	width: 20%;
+	-webkit-box-shadow: 3px 0px 6px -1px rgba(128,128,128,1);
+	-moz-box-shadow: 3px 0px 6px -1px rgba(128,128,128,1);
+	box-shadow: 3px 0px 6px -1px rgba(128,128,128,1);
+	margin: 15px;
+}
+
+mat-drawer-content {
+	height: 100%;
+	width: 75%;
+	padding: 15px;
+	padding-left: 20px;		
+	margin-bottom: 15px;
+}
+
+.bottom-menu {
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+
+.example-full-width {
+	width: 100%;
+}
+
+.menu-search-input {
+	color: white;
+}
+
+mat-drawer ::ng-deep .mat-form-field-placeholder, mat-drawer ::ng-deep .mat-focused .mat-form-field-placeholder{
+  color:white;
+}
+
+div.example-container {
+	width: 100%;
+	padding: 10px;
+}
+
+.field-25-width {
+	width: 25%;
+}
+.field-full-width {
+	width: 100%;
+}
+.field-half-width {
+	width: 49%;
+}
+.field-75-width {
+	width: 75%;
+}
+.field-33-width {
+	width: 33%;
+}
+
+.button-bar {
+	width: 100%;
+	padding: 10px;
+}
+
+.customer-image {
+  background-image: url('/assets/images/customer.png');
+  background-size: cover;
+}
+
+.invoice-image {
+  background-image: url('/assets/images/invoice.png');
+  background-size: cover;
+}
+
+.example-card {
+	margin: 10px;	
+}
+
+.mat-card-header-action {
+	width: 100%;
+	text-align: right;	
+}

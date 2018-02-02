@@ -5,6 +5,7 @@ export class User {
   userName: string;
   email: string;
 
+
   constructor(id: number, firstName: string, lastName: string, userName: string, email: string) {
     this.id = id;
     this.firstName = firstName;

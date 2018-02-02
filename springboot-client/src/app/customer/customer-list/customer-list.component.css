@@ -1,0 +1,25 @@
+.id-column {
+  flex: 0 0 10%;
+}
+
+.element-row {
+	position: relative;
+}
+
+.element-row:not (.expanded ) {
+	cursor: pointer;
+}
+
+.element-row:not (.expanded ):hover {
+	background: #f5f5f5;
+}
+
+.element-row.expanded {
+	border-bottom-color: transparent;
+}
+
+.list-container {
+	padding: 10px;
+	background: white;
+	height: 100%;
+}

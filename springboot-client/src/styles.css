@@ -1,3 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~font-awesome/css/font-awesome.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+
+div.example-container {
+	width: 100%;
+	padding: 10px;
+}
+
+.field-25-width {
+	width: 25%;
+}
+.field-full-width {
+	width: 100%;
+}
+.field-half-width {
+	width: 49%;
+}
+.field-75-width {
+	width: 75%;
+}
+.field-33-width {
+	width: 33%;
+}
+
+.button-bar {
+	width: 100%;
+	padding: 10px;
+}
+
+.customer-image {
+  background-image: url('/assets/images/customer.png');
+  background-size: cover;
+}
+
+.invoice-image {
+  background-image: url('/assets/images/invoice.png');
+  background-size: cover;
+}
+
+.example-card {
+	margin: 10px;	
+}
+
+.mat-card-header-action {
+	width: 100%;
+	text-align: right;	
+}
