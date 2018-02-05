@@ -5,8 +5,9 @@ import {Customer} from '../customer';
 import {DialogConfirmationComponent} from '../customer-list/dialog-confirmation/dialog-confirmation.component';
 import {Invoice} from '../invoice';
 import {InvoiceDetailComponent} from '../invoice-detail/invoice-detail.component';
+import {InvoiceService} from '../invoice-detail/invoice.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, MatTab, MatTabGroup, MatTabChangeEvent} from '@angular/material';
 import {MatDialog} from '@angular/material/dialog';
 
 
@@ -23,13 +24,15 @@ export class CustomerCreateComponent implements OnInit {
   customerForm: FormGroup;
   private sub: any;
   dataSource;
+  years: number[];
 
-  displayedColumns = ['id', 'year', 'date'];
+  displayedColumns = ['id', 'year', 'date', 'actions'];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private cd: ChangeDetectorRef,
     private customerService: CustomerService,
+    private invoiceService: InvoiceService,
     private dialog: MatDialog) {
 
     this.customerForm = new FormGroup({
@@ -66,7 +69,15 @@ export class CustomerCreateComponent implements OnInit {
             province: customer.province,
             showInList: customer.showInList
           });
-          this.dataSource = new MatTableDataSource<Invoice>(customer.invoices);
+          this.customerService.invoicingYears(customer.id).subscribe(years => {
+            this.years = years;
+            this.invoiceService.findByYearAndCustomerId(years[0], customer.id).subscribe(
+              invoices => {
+                this.dataSource = new MatTableDataSource<Invoice>(invoices);
+              }, error => {
+                this.dataSource = new MatTableDataSource<Invoice>([]);
+              });
+          });
           console.log(this.dataSource);
         }, error => {
           this.router.navigate(['login']);
@@ -114,9 +125,26 @@ export class CustomerCreateComponent implements OnInit {
     this.router.navigate(['/customers/list']);
   }
 
-  selectRow(row) {
-    const path = '/invoices/' + row.year + '/' + row.id;
-    console.log(path);
+  editInvoicePage(invoice: Invoice) {
+    const path = '/invoices/' + invoice.year + '/' + invoice.id;
     this.router.navigate([path]);
+  }
+
+  tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
+    console.log(this.id);
+    console.log('Tab changeed: ' + tabChangeEvent.index);
+    this.invoiceService.findByYearAndCustomerId(this.years[tabChangeEvent.index], this.id).subscribe(
+      invoices => {
+        this.dataSource = new MatTableDataSource<Invoice>(invoices);
+      });
+  }
+  openConfirmation(element) {
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {data: element});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //        this.deleteCustomer(customer);
+      }
+    });
   }
 }

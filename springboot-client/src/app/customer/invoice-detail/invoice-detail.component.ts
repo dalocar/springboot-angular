@@ -1,11 +1,15 @@
+import {DialogConfirmationComponent} from '../customer-list/dialog-confirmation/dialog-confirmation.component';
 import {LineInvoice} from '../lineinvoice';
+import {DialogEditLineComponent} from './dialog-edit-line/dialog-edit-line.component';
 import {InvoiceService} from './invoice.service';
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {MatDatepicker} from '@angular/material';
-import { DateAdapter } from '@angular/material/core';
+import {DateAdapter} from '@angular/material/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import {ActivatedRoute, Router} from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -22,10 +26,11 @@ export class InvoiceDetailComponent implements OnInit {
   id: number;
   year: number;
   dataSource;
-  displayedColumns = ['lineNumber', 'amount', 'description', 'price', 'vat', 'total'];
+  displayedColumns = ['lineNumber', 'amount', 'description', 'price', 'vat', 'total', 'actions'];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private invoiceService: InvoiceService) {
+  constructor(private route: ActivatedRoute, private router: Router, private invoiceService: InvoiceService,
+    private dialog: MatDialog, private location: Location) {
     this.invoiceForm = new FormGroup({
       id: new FormControl(''),
       year: new FormControl(''),
@@ -58,5 +63,23 @@ export class InvoiceDetailComponent implements OnInit {
   }
   onSubmit() {
 
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  editCustomerPage(element) {
+    const dialogRef = this.dialog.open(DialogEditLineComponent, {data: element});
+  }
+
+  openConfirmation(element) {
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {data: element});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //        this.deleteCustomer(customer);
+      }
+    });
   }
 }

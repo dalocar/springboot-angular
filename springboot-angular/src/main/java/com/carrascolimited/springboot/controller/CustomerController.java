@@ -1,7 +1,5 @@
 package com.carrascolimited.springboot.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,30 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.carrascolimited.springboot.service.CustomerService;
 import com.carrascolimited.springboot.vo.CreateCustomerVO;
-import com.carrascolimited.springboot.vo.CustomerListVO;
 import com.carrascolimited.springboot.vo.CustomerVO;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/customer")
 public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private CustomerInvoicesController customerInvoicesController; 
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public CustomerVO getUser(@PathVariable("id") Integer id) {
 		return customerService.getCustomerById(id);
-	}
-
-	@RequestMapping(method = RequestMethod.GET, params = { "page", "size", "sortColumn", "sortDirection" })
-	public CustomerListVO getCustomers(Integer page, Integer size, String sortColumn, String sortDirection) {
-		return customerService.findCustomers(page, size, sortColumn, sortDirection);
-	}
-
-	@RequestMapping(method = RequestMethod.GET, path = "/all", params = { "filter" })
-	public List<CustomerVO> getAllCustomers(String filter) {
-		return customerService.findFiltered(filter);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -55,5 +44,5 @@ public class CustomerController {
 	public String delete(@PathVariable("id") Integer id) {
 		customerService.deleteUser(id);
 		return "OK";
-	}
+	}	
 }

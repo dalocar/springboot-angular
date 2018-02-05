@@ -20,7 +20,7 @@
 		</mat-card-content>
 		<mat-card-actions>
 			<button  mat-raised-button type="submit"  color="primary" >Guardar</button>
-			<button type="button"  mat-raised-button color="warn"  >Cancelar</button>
+			<button type="button"  mat-raised-button color="warn" (click)="goBack()">Cancelar</button>
 		</mat-card-actions>
 	</form>	
 </mat-card>
@@ -53,12 +53,19 @@
 			 	 </ng-container>
 			 	 <ng-container matColumnDef="vat">
 				    <mat-header-cell *matHeaderCellDef> VAT </mat-header-cell>
-				    <mat-cell *matCellDef="let element"> {{element.vat | currency:'EUR'}} </mat-cell>
+				    <mat-cell *matCellDef="let element"> {{element.vat | percent}} </mat-cell>
 			 	 </ng-container>
 			 	 <ng-container matColumnDef="total">
 				    <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
 				    <mat-cell *matCellDef="let element"> {{element.price * element.amount * ((element.vat + 100) / 100) | currency:'EUR'}} </mat-cell>
 			 	 </ng-container>
+			 	 <ng-container matColumnDef="actions">
+					<mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell> 
+					<mat-cell *matCellDef="let element">
+						<button mat-icon-button aria-label="Editar" type="button" class="btn btn-success" (click)="editCustomerPage(element)"><mat-icon>edit</mat-icon></button>
+						<button mat-icon-button  aria-label="Eliminar" type="button" class="btn btn-danger" (click)="openConfirmation(element);"><mat-icon>delete</mat-icon></button>
+					</mat-cell>
+				</ng-container>			
 			    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 			    <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
 			</mat-table>

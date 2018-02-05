@@ -1,5 +1,7 @@
 package com.carrascolimited.springboot.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,16 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public InvoiceVO getByInvoiceId(Integer year, Integer id) {
 		return dozerService.map(repository.findByIdAndYear(id, year), InvoiceVO.class);
+	}
+
+	@Override
+	public List<Integer> getInvoiceYears(Integer customerId) {
+		return repository.findInvoiceYearsByCustomerId(customerId);
+	}
+
+	@Override
+	public List<InvoiceVO> getInvoicesYear(Integer customerId, Integer year) {
+		return dozerService.mapList(repository.findByCustomerIdAndYear(customerId, year), InvoiceVO.class);
 	}
 
 }

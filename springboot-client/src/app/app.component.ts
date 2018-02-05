@@ -39,6 +39,8 @@ export class AppComponent {
   isLoggedIn(): boolean {
     const isLoggedIn = this.authenticationService.isLoggedIn();
     this.opened = isLoggedIn;
+    if (!isLoggedIn) {
+    }
     return isLoggedIn;
   }
 

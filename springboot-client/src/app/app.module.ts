@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CustomerModule} from './customer/customer.module';
-import { DateFormat } from './date/date-format';
+import {DateFormat} from './date/date-format';
 import {UserModule} from './user/user.module';
 import {NotFoundComponent} from './notfound.component';
 import {HttpModule} from '@angular/http';
@@ -16,7 +16,8 @@ import {AuthCanActivate} from './login/auth.canActivate';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCheckboxModule, MatTableModule, MatPaginatorModule, MatInputModule, MatCardModule, MatDatepickerModule,
-  MatListModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatMenuModule, MatTooltipModule, MatProgressBarModule, MatChipsModule
+  MatListModule, MatSidenavModule, MatIconModule, MatToolbarModule, MatMenuModule, MatTabsModule,
+  MatTooltipModule, MatProgressBarModule, MatChipsModule
 } from '@angular/material';
 import {MatNativeDateModule, DateAdapter} from '@angular/material/core';
 

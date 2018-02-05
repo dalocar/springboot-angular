@@ -1,5 +1,4 @@
-
-<mat-drawer-container class="example-container" fullscreen>
+<mat-drawer-container class="example-container" fullscreen *ngIf="isLoggedIn()">
 	<mat-drawer  mode="side" opened>   
 	<mat-toolbar>
 		<button mat-icon-button [matMenuTriggerFor]="menu">
@@ -53,6 +52,6 @@
 		<router-outlet></router-outlet>		  
   	</mat-drawer-content>
  </mat-drawer-container>
- 	
+ 
   
   

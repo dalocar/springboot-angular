@@ -55,4 +55,10 @@ export class CustomerService {
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
+
+  invoicingYears(id: number): Observable<number[]> {
+    return this.http.get(this.apiUrl + '/' + id + '/invoices', {headers: this.headers})
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }

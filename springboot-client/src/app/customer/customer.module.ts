@@ -13,9 +13,10 @@ import {
   , MatInputModule, MatCardModule, MatDatepickerModule
   , MatListModule, MatSidenavModule
   , MatDialogModule, MatProgressBarModule, MatRippleModule, MatIconModule
-  , MatGridListModule
+  , MatGridListModule, MatTabsModule
 } from '@angular/material';
 import {DialogConfirmationComponent} from './customer-list/dialog-confirmation/dialog-confirmation.component';
+import {DialogEditLineComponent} from './invoice-detail/dialog-edit-line/dialog-edit-line.component';
 import {InvoiceDetailComponent} from './invoice-detail/invoice-detail.component';
 import {DateAdapter} from '@angular/material/core';
 
@@ -40,13 +41,15 @@ import {DateAdapter} from '@angular/material/core';
     MatRippleModule,
     MatSidenavModule,
     MatSortModule,
+    MatTabsModule,
     MatTableModule,
     NgxPaginationModule,
     ReactiveFormsModule
   ],
-  declarations: [CustomerCreateComponent, CustomerListComponent, DialogConfirmationComponent, InvoiceDetailComponent],
+  declarations: [CustomerCreateComponent, CustomerListComponent, DialogConfirmationComponent
+    , InvoiceDetailComponent, DialogEditLineComponent],
   providers: [AuthCanActivate],
-  entryComponents: [DialogConfirmationComponent, InvoiceDetailComponent]
+  entryComponents: [DialogConfirmationComponent, InvoiceDetailComponent, DialogEditLineComponent]
 })
 export class CustomerModule {
   constructor(private dateAdapter: DateAdapter<Date>) {
