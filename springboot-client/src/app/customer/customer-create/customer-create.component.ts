@@ -1,4 +1,4 @@
-import {Component, OnDestroy, AfterViewInit, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Component, OnDestroy, ViewChild, OnInit, ChangeDetectorRef, AfterViewInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerService} from '../customer.service';
 import {Customer} from '../customer';
@@ -9,6 +9,7 @@ import {InvoiceService} from '../invoice-detail/invoice.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatTableDataSource, MatTab, MatTabGroup, MatTabChangeEvent} from '@angular/material';
 import {MatDialog} from '@angular/material/dialog';
+import {MatPaginator} from '@angular/material/paginator';
 
 
 @Component({
@@ -17,7 +18,8 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./customer-create.component.css'],
   providers: [CustomerService]
 })
-export class CustomerCreateComponent implements OnInit {
+export class CustomerCreateComponent implements AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   id: number;
   customer: Customer;
@@ -25,7 +27,8 @@ export class CustomerCreateComponent implements OnInit {
   private sub: any;
   dataSource;
   years: number[];
-
+  currentPage: number;
+  currentTab: number;
   displayedColumns = ['id', 'year', 'date', 'actions'];
 
   constructor(private route: ActivatedRoute,
@@ -47,11 +50,13 @@ export class CustomerCreateComponent implements OnInit {
       showInList: new FormControl(''),
     });
     this.dataSource = new MatTableDataSource<Invoice>([]);
+    this.currentPage= 0;
+    this.currentTab= 0;
   }
 
 
-  ngOnInit(): void {
-
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
       this.customerService.findById(this.id).subscribe(
@@ -71,11 +76,14 @@ export class CustomerCreateComponent implements OnInit {
           });
           this.customerService.invoicingYears(customer.id).subscribe(years => {
             this.years = years;
-            this.invoiceService.findByYearAndCustomerId(years[0], customer.id).subscribe(
+            this.currentTab = years[0];
+            this.invoiceService.findByYearAndCustomerId(years[0], customer.id, 0, 5).subscribe(
               invoices => {
-                this.dataSource = new MatTableDataSource<Invoice>(invoices);
+                this.dataSource = new MatTableDataSource<Invoice>(invoices.invoices);
+                this.paginator.length = invoices.total;
               }, error => {
                 this.dataSource = new MatTableDataSource<Invoice>([]);
+                this.paginator.length = 0;
               });
           });
           console.log(this.dataSource);
@@ -122,7 +130,7 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   redirectCustomerPage() {
-    this.router.navigate(['/customers/list']);
+    this.router.navigate(['/landing']);
   }
 
   editInvoicePage(invoice: Invoice) {
@@ -131,13 +139,20 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   tabChanged = (tabChangeEvent: MatTabChangeEvent): void => {
-    console.log(this.id);
-    console.log('Tab changeed: ' + tabChangeEvent.index);
-    this.invoiceService.findByYearAndCustomerId(this.years[tabChangeEvent.index], this.id).subscribe(
+
+    this.invoiceService.findByYearAndCustomerId(this.years[tabChangeEvent.index], this.id, 0, 5).subscribe(
       invoices => {
-        this.dataSource = new MatTableDataSource<Invoice>(invoices);
+        this.dataSource = new MatTableDataSource<Invoice>(invoices.invoices);
       });
   }
+
+  onPaginationChange(event) {
+    this.invoiceService.findByYearAndCustomerId(this.currentTab, this.id, event.pageIndex, 5).subscribe(
+      invoices => {
+        this.dataSource = new MatTableDataSource<Invoice>(invoices.invoices);
+      });
+  }
+
   openConfirmation(element) {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {data: element});
 

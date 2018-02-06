@@ -10,6 +10,7 @@ import {NotFoundComponent} from './notfound.component';
 import {HttpModule} from '@angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
+import { LandingComponent } from './landing/landing.component';
 import {LoginComponent} from './login/login.component';
 import {AuthenticationService} from './login/authentication.service';
 import {AuthCanActivate} from './login/auth.canActivate';
@@ -28,12 +29,14 @@ import {NgPipesModule} from 'ngx-pipes';
   declarations: [
     AppComponent,
     HomeComponent,
+    LandingComponent,
     LoginComponent,
     NotFoundComponent
   ],
   imports: [
     AppRoutingModule, BrowserAnimationsModule, BrowserModule, CustomerModule, FormsModule, HttpClientModule, HttpModule,
-    MatCardModule, MatChipsModule, MatDatepickerModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatNativeDateModule,
+    MatButtonModule, MatCardModule, MatChipsModule, MatDatepickerModule, MatIconModule, MatInputModule, MatListModule,
+    MatMenuModule, MatNativeDateModule,
     MatProgressBarModule, MatSidenavModule, MatToolbarModule, MatTooltipModule, NgPipesModule, UserModule
   ],
   providers: [AuthenticationService, AuthCanActivate, {provide: DateAdapter, useClass: DateFormat}],

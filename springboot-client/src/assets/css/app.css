@@ -1,0 +1,69 @@
+@import "/assets/css/matcard.css";
+@import "/assets/css/forms.css";
+
+.mat-toolbar {
+	background: #3f51b5;
+}
+
+button {
+	background: transparent;
+	border: none;
+}
+
+.button_show_menu, .button_show_menu .mat-icon {
+	text-align: left;
+	position: absolute;
+	top: 15px;
+	left: 0px;
+	color: blue;
+}
+
+.mat-icon {
+	width: 32px;
+	height: 32px;
+	font-size: 32px;	
+}
+
+.mat-list-item  a {
+	width: 100%;
+	line-height: 48px;
+}
+
+.mat-list-item .mat-icon {
+	color: rgba(0, 0, 0, .54);
+	height: 48px;
+	float: left;
+}
+
+
+
+.mat-list-item span {
+	font-size: 15px;
+}
+
+.mat-sidenav {
+	width: 20%;
+	-webkit-box-shadow: 3px 0px 6px -1px rgba(128, 128, 128, 1);
+	-moz-box-shadow: 3px 0px 6px -1px rgba(128, 128, 128, 1);
+	box-shadow: 3px 0px 6px -1px rgba(128, 128, 128, 1);
+	margin: 15px;
+}
+
+.mat-sidenav-content {
+	height: 100%;
+	width: 75%;
+}
+
+.mat-toolbar mat-icon,.mat-sidenav input, .mat-sidenav mat-placeholder {
+	color: white!important;
+}
+
+
+.mat-sidenav .mat-form-field-flex {
+	border-bottom: 1px solid white;		
+}
+
+.button-bar {
+	width: 100%;
+	padding: 10px;
+}

@@ -1,0 +1,33 @@
+.mat-card { 
+	padding: 0px!important;	 
+	margin: 15px;
+	margin-left: 20px;		
+}
+.mat-card-header {
+	background: #3f51b5;
+	color: white;
+	height: 64px;
+}
+
+.mat-card-header-action {
+	width: 100%;
+	text-align: right;
+	padding: 5px;	
+}
+
+.mat-card-content {
+	padding: 15px;
+	margin: 0px;
+}
+
+.mat-card-actions {
+	padding: 25px!important;
+}
+
+.mat-card-avatar {	
+	
+}
+.mat-card .mat-icon {
+	margin: 10px;
+	font-size: 2em;
+}

@@ -12,7 +12,7 @@ import com.carrascolimited.springboot.domain.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	
-	Page<Customer> findByActiveTrue(Pageable pageabke);
+	Page<Customer> findByActiveTrue(Pageable pageable);
 	
 	List<Customer> findByNameContainingOrAddressContainingAllIgnoreCase(String name, String address);
 }

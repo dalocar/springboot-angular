@@ -1,35 +1,38 @@
-<mat-drawer-container class="example-container" fullscreen *ngIf="isLoggedIn()">
-	<mat-drawer  mode="side" opened>   
+<div *ngIf="!isLoggedIn()">
+	<router-outlet></router-outlet>
+</div>
+
+<mat-sidenav-container class="example-container" fullscreen *ngIf="isLoggedIn()">
+	<mat-sidenav #sidenav mode="side" [opened]="opened">   
 	<mat-toolbar>
 		<button mat-icon-button [matMenuTriggerFor]="menu">
   			<mat-icon>more_vert</mat-icon>
-		</button>
-	
-	<mat-form-field>
-    	  <input matInput (keyup)="applyFilter($event.target.value)" class="menu-search-input">
-    	   <mat-placeholder color="#FFFFFF">Buscar</mat-placeholder>
-    </mat-form-field>
-	
+		</button>	
+	<mat-form-field class="field-full-width">
+    	  <input matInput (keyup)="applyFilter($event.target.value)" >
+    	  <mat-placeholder color="#FFFFFF">Buscar</mat-placeholder>
+    </mat-form-field>	
 		<button mat-icon-button style="float:right">
   			<mat-icon>search</mat-icon>
 		</button>
+		<button mat-icon-button (click)="sidenav.toggle()" style="float:right"><mat-icon>chevron_left</mat-icon></button>
+		
 		<mat-menu #menu="matMenu">
   			<button mat-menu-item (click)="selectCategory('users')">
   				<mat-icon>account_box</mat-icon>
   				<span>Usuarios</span>
   			</button>
-  			<button mat-menu-item routerLink="/invoice" routerLinkActive="active" >
-  				<mat-icon>store</mat-icon>
-  				<span>Facturas</span>
-  			</button>
   			<button mat-menu-item (click)="selectCategory('customers')">
-  				<mat-icon>account_circle</mat-icon>
+  				<mat-icon>store</mat-icon>
   				<span>Clientes</span>
-  			</button>  		
+  			</button>  	
+  			 <button mat-menu-item routerLink="/login">
+  				<mat-icon>lock_open</mat-icon>
+  				<span>Salir</span>
+  			</button> 	
 		</mat-menu>
 	</mat-toolbar> 	
-	<mat-list role="list" *ngIf="selected == 'users'">
-		<h1>Usuarios</h1>  		
+	<mat-list role="list" *ngIf="selected == 'users'">		  		
 		<mat-list-item *ngFor="let user of users">
 			<a routerLink="/users/list" routerLinkActive="active">
 				<mat-icon class="mat-menu-item">face</mat-icon>
@@ -37,21 +40,22 @@
 			</a>
 		</mat-list-item>
 	</mat-list>  
-	<mat-list role="list" *ngIf="selected == 'customers'">  
-		<h1>Clientes</h1>
-		<mat-list-item *ngFor="let customer of customers">
-			<a (click)="editCustomerPage(customer)">
+	<mat-list role="list" *ngIf="selected == 'customers'">
+		<mat-list-item *ngFor="let customer of filteredCustomers">
+			<div class="customer-list-item" (click)="editCustomerPage(customer)">			
 				<mat-icon class="mat-menu-item">face</mat-icon>
-				<span matTooltip="{{customer.name+'\n'}}{{customer.address}}">{{customer.id}}-{{customer.name | ucwords | shorten: 20: '...' }}</span>
-			</a> 
+				<span class="customer-list-item-name">{{customer.name | ucwords | shorten: 40: '...' | titlecase }}</span>
+				<span class="customer-list-item-address">{{customer.address}}</span>							 
+			</div>
 		</mat-list-item>
 	</mat-list>  
- 	</mat-drawer> 
+ 	</mat-sidenav> 
   
-  	<mat-drawer-content>  		
+  	<mat-sidenav-content> 
+  		<div class="button_show_menu" *ngIf="!sidenav.opened"><button mat-icon-button (click)="sidenav.toggle()"><mat-icon>chevron_right</mat-icon></button></div>
 		<router-outlet></router-outlet>		  
-  	</mat-drawer-content>
- </mat-drawer-container>
+  	</mat-sidenav-content>
+ </mat-sidenav-container>
  
   
   

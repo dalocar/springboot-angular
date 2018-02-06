@@ -3,11 +3,7 @@
   margin-top:20px;
   margin-bottom:20px;
 }
- 
-.alert.alert-info {
-  color:#607D8B;
-}
- 
+
 .alert.alert-error {
   color:red;
 }
@@ -18,11 +14,22 @@
   background-color:gray;
 }
  
-.form-control {
-  width: 200px;
-  margin-bottom:10px;
+.login-card {
+	width: 400px;	
 }
- 
-.btn {
-  margin-top:20px;
+
+.login-card-image {
+  background-image: url('/assets/images/customer.png');
+  background-size: cover;
 }
+.login-card .mat-card-actions {
+	text-align: center;	
+}
+
+.main-div{
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

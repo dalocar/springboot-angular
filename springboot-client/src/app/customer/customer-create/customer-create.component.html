@@ -1,8 +1,8 @@
 <mat-card class="example-card" >
 	<form novalidate [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="example-container">
 	 	<mat-card-header>	 	
-	 	 	<div mat-card-avatar class="customer-image"></div>
-			<mat-card-title><h2>Clientes</h2></mat-card-title>
+	 	 	<div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
+			<mat-card-title><h2>{{customerForm.controls['name'].value + ' ' + customerForm.controls['address'].value | titlecase}}</h2></mat-card-title>
     	</mat-card-header>		
 		<mat-card-content>			
 			<mat-form-field class="field-25-width">
@@ -50,7 +50,7 @@
 <mat-card class="example-card">	
 
 	<mat-card-header>
- 	 	<div mat-card-avatar class="invoice-image"></div>
+ 	 	<div mat-card-avatar><mat-icon>business_center</mat-icon></div>
 		<mat-card-title><h2>Facturas</h2></mat-card-title>
 		<div class="mat-card-header-action" ><button mat-mini-fab color="primary"><mat-icon>add</mat-icon></button></div>
 	</mat-card-header>	
@@ -83,6 +83,7 @@
 					    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 					    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 		 			</mat-table>     
+		 			<mat-paginator #paginator [pageSize]="5" (page)="pageEvent = onPaginationChange($event)"> </mat-paginator>
 			    </div>
 			</mat-tab>
 		</mat-tab-group>	

@@ -110,22 +110,3 @@ export class CustomerListComponent implements AfterViewInit {
   }
 }
 
-// export class ExampleDataSource extends DataSource<any> {
-//
-//  data: Customer[];
-//
-//  constructor(data: Customer[]) {
-//    super();
-//    this.data = data;
-//  }
-//  /** Connect function called by the table to retrieve one stream containing the data to render. */
-//  connect(): Observable<Customer[]> {
-//    const rows = [];
-//    console.log('Here!!');
-//    this.data.forEach(element => rows.push(element, {detailRow: true, element}));
-//    console.log(rows);
-//    return Observable.of(rows);
-//  }
-//
-//  disconnect() {}
-// }

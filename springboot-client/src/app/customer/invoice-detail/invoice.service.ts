@@ -24,9 +24,10 @@ export class InvoiceService {
   }
 
 
-  findByYearAndCustomerId(year: number, customerId: number) {
+  findByYearAndCustomerId(year: number, customerId: number, page: number, size: number) {
     console.log('Invoice service.findByYearAndCustomerId');
-    return this.http.get(this.apiCustomerUrl + '/' + customerId + '/invoices/' + year, {headers: this.headers})
+    return this.http.get(this.apiCustomerUrl + '/' + customerId + '/invoices/' + year,
+      {headers: this.headers, params: {page: page, size: size}})
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Error'));
   }

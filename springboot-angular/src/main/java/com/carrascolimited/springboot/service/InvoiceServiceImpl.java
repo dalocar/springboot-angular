@@ -3,9 +3,14 @@ package com.carrascolimited.springboot.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.carrascolimited.springboot.domain.Customer;
+import com.carrascolimited.springboot.domain.Invoice;
 import com.carrascolimited.springboot.repo.InvoiceRepository;
+import com.carrascolimited.springboot.vo.InvoiceListVO;
 import com.carrascolimited.springboot.vo.InvoiceVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +36,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public List<InvoiceVO> getInvoicesYear(Integer customerId, Integer year) {
-		return dozerService.mapList(repository.findByCustomerIdAndYear(customerId, year), InvoiceVO.class);
+	public InvoiceListVO getInvoicesYear(Integer customerId, Integer year, Integer page, Integer size) {
+
+		Page<Invoice> activeCustomers = repository.findByCustomerIdAndYear(customerId, year,
+				new PageRequest(page, size));
+
+		InvoiceListVO listVo = new InvoiceListVO();
+		listVo.setInvoices(dozerService.mapList(activeCustomers.getContent(), InvoiceVO.class));
+		listVo.setTotal(activeCustomers.getTotalElements());
+		return listVo;
 	}
 
 }

@@ -10,24 +10,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carrascolimited.springboot.service.InvoiceService;
-import com.carrascolimited.springboot.vo.InvoiceVO;
+import com.carrascolimited.springboot.vo.InvoiceListVO;
 
 @RestController
 @RequestMapping("/customer/{customerId}/invoices")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CustomerInvoicesController {
-	
+
 	@Autowired
 	private InvoiceService invoiceService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Integer> getUserInvoices(@PathVariable Integer customerId) {	
-		return invoiceService.getInvoiceYears(customerId);		
+	public List<Integer> getUserInvoices(@PathVariable Integer customerId) {
+		return invoiceService.getInvoiceYears(customerId);
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, path = "/{year}")
-	public List<InvoiceVO> getUserInvoices(@PathVariable Integer customerId, @PathVariable Integer year) {	
-		return invoiceService.getInvoicesYear(customerId, year);		
-	}	
-	
+
+	@RequestMapping(method = RequestMethod.GET, path = "/{year}", params = { "page", "size" })
+	public InvoiceListVO getUserInvoices(@PathVariable Integer customerId, @PathVariable Integer year, Integer page,
+			Integer size) {
+		return invoiceService.getInvoicesYear(customerId, year, page, size);
+	}
+
 }

@@ -6,7 +6,6 @@ import {AuthenticationService} from './login/authentication.service';
 import {User} from './user/user';
 import {UserService} from './user/user.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {MatIconRegistry, MatIconButtonCssMatStyler} from '@angular/material';
 import {MatChip} from '@angular/material/chips';
 import {MatInput} from '@angular/material/input';
 import {MatMenu} from '@angular/material/menu';
@@ -26,14 +25,12 @@ export class AppComponent {
   selected = 'customers';
   private users: User[];
   private customers: Customer[];
+  private filteredCustomers: Customer[];
 
   constructor(private router: Router, private authenticationService: AuthenticationService,
-    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
     private userService: UserService,
-    private invoiceService: InvoiceService,
     private customerService: CustomerService) {
-    iconRegistry.addSvgIcon('thumb-up', sanitizer.bypassSecurityTrustResourceUrl('/icons/svg/ic_thumb_up_black_24px.svg'));
   }
 
   isLoggedIn(): boolean {
@@ -77,6 +74,7 @@ export class AppComponent {
     this.customerService.getAll(filter).subscribe(
       customers => {
         this.customers = customers;
+        this.filteredCustomers = this.customers;
       },
       err => {
         console.log('Error here: ' + err);
@@ -89,7 +87,8 @@ export class AppComponent {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     if (filterValue.length > 3 || filterValue.length === 0) {
-      this.getAllCustomers(filterValue);
+      this.filteredCustomers = this.customers.filter(customer =>
+        customer.name.concat(customer.address).toLowerCase().includes(filterValue));
     }
   }
 

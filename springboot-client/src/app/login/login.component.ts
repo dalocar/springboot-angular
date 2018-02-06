@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import { AuthenticationService } from './authentication.service';
+import {AuthenticationService} from './authentication.service';
+import {MatButton} from '@angular/material/button';
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService) {}
+    private authenticationService: AuthenticationService) {
+  }
 
   ngOnInit() {
     // reset login status
@@ -28,7 +31,7 @@ export class LoginComponent implements OnInit {
       .subscribe(result => {
         if (result === true) {
           // login successful
-          this.router.navigate(['users/list']);
+          this.router.navigate(['/landing']);
         } else {
           // login failed
           this.error = 'Username or password is incorrect';
