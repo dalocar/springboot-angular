@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.belikesoftware.security.repository.UserAuthRepository;
 import com.carrascolimited.springboot.assembler.UserAssembler;
 import com.carrascolimited.springboot.domain.User;
 import com.carrascolimited.springboot.exception.ResourceNotFoundException;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserAuthRepository userAuthRepository;
 
 	public UserVO getUserById(Long id) {
 		User user = userRepository.findOne(id);
