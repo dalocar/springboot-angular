@@ -14,20 +14,12 @@ export class UserCreateComponent implements OnInit {
 
   id: number;
   user: User;
-
   userForm: FormGroup;
   private sub: any;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService) {}
-
-
-  ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-    });
-
+    private userService: UserService) {
     this.userForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
@@ -36,6 +28,13 @@ export class UserCreateComponent implements OnInit {
         Validators.required,
         Validators.pattern('[^ @]*@[^ @]*')
       ])
+    });    
+  }
+
+  ngOnInit() {
+    console.log('onInit');
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
     });
 
     if (this.id) {

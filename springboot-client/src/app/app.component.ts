@@ -58,6 +58,13 @@ export class AppComponent {
     }
   }
 
+  editUserPage(user: User) {
+    if (user) {
+      this.router.navigate(['/users/edit', user.id]);
+    }
+  }
+
+
   getAllUsers() {
     this.userService.findAll().subscribe(
       users => {

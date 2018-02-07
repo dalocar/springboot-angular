@@ -34,10 +34,10 @@
 	</mat-toolbar> 	
 	<mat-list role="list" *ngIf="selected == 'users'">		  		
 		<mat-list-item *ngFor="let user of users">
-			<a routerLink="/users/list" routerLinkActive="active">
+			<div class="customer-list-item" (click)="editUserPage(user)">		
 				<mat-icon class="mat-menu-item">face</mat-icon>
 				<span matTooltip="{{user.userName}}">{{user.firstName}} {{user.lastName}}</span>
-			</a>
+			</div>
 		</mat-list-item>
 	</mat-list>  
 	<mat-list role="list" *ngIf="selected == 'customers'">

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '../user';
 import {UserService} from '../user.service';
+import {MatTableDataSource, MatTable, MatIcon} from '@angular/material';
 import {Router} from '@angular/router';
-
 
 @Component({
   selector: 'app-user-list',
@@ -13,6 +13,9 @@ import {Router} from '@angular/router';
 export class UserListComponent implements OnInit {
 
   private users: User[];
+  displayedColumns = ['id', 'username', 'name', 'email', 'actions'];
+  dataSource = new MatTableDataSource<User>([]);
+
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
@@ -22,6 +25,7 @@ export class UserListComponent implements OnInit {
   getAllUsers() {
     this.userService.findAll().subscribe(
       users => {
+        this.dataSource.data = users;
         this.users = users;
       },
       err => {

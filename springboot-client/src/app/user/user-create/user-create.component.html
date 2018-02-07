@@ -1,51 +1,38 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <section>
-        <form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()">
-          <fieldset>
-           <div class="form-group">
-              <label>Id</label>
-              <input type="text"
-                     class="form-control" [readOnly]
-                     [value]="id">
-            </div>
-            
-            <div class="form-group">
-              <label>First Name</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="firstName">
-            </div>
+<mat-card class="example-card">
 
-            <div class="form-group">
-              <label>Last Name</label>
-              <input type="text"
-                     class="form-control"
-                     formControlName="lastName">
-            </div>
-          </fieldset>
+<form novalidate [formGroup]="userForm" (ngSubmit)="onSubmit()" class="example-container">
+	<mat-card-header>
+		<div mat-card-avatar>
+			<mat-icon>account_circle</mat-icon>
+		</div>	
+		<mat-card-title>
+			<h2>{{userForm.controls['firstName'].value + ' ' +
+				userForm.controls['lastName'].value | titlecase}}</h2>
+		</mat-card-title> 
+	</mat-card-header>
+	<mat-card-content>
+		<mat-form-field class="field-25-width">
+			<input matInput  placeholder="Id"  type="text" class="form-control" [readOnly] [value]="id">
+		</mat-form-field>
+		<mat-form-field class="field-25-width">
+			<input matInput placeholder="Nombre"  type="text" class="form-control" formControlName="firstName">
+		</mat-form-field>
+		<mat-form-field class="field-25-width">			
+			<input  matInput placeholder="Apellidos"  type="text" class="form-control" formControlName="lastName">
+		</mat-form-field>
+		<mat-form-field class="field-25-width">
+			<input matInput placeholder="E-Mail" type="email" class="form-control" formControlName="email">
+		</mat-form-field>
+		<mat-form-field class="field-25-width">			 
+			<input matInput placeholder="Login"  type="text" class="form-control" formControlName="userName">
+		</mat-form-field>
+	</mat-card-content>
+	<mat-card-actions>
+		<button mat-raised-button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Submit</button>
+		<button mat-raised-button  type="button" class="btn btn-warning" (click)="redirectUserPage()">Cancel</button>
+	</mat-card-actions>
+	
+</form>
 
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email"
-                   class="form-control"
-                   formControlName="email">
-          </div>
-          
-         <div class="form-group">
-            <label>Username</label>
-            <input type="text"
-                   class="form-control"
-                   formControlName="userName">
-          </div>
-          
-
-          <button type="submit" class="btn btn-primary"  [disabled]="!userForm.valid" >Submit</button>
-          <button type="button" class="btn btn-warning" (click)="redirectUserPage()">Cancel</button>
-          <pre>{{userForm.value | json}}</pre>
-        </form>
-      </section>
-    </div>
-  </div>
-</div>
+</mat-card>
+<pre>{{userForm.value | json}}</pre>

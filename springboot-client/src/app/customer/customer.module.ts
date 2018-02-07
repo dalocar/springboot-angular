@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 
 import {CustomerRoutingModule} from './customer-routing.module';
 import {CustomerCreateComponent} from './customer-create/customer-create.component';
-import {FormsModule, ReactiveFormsModule, FormBuilder, FormGroup} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CustomerListComponent} from './customer-list/customer-list.component';
 import {AuthCanActivate} from '../login/auth.canActivate';
 import {NgxPaginationModule} from 'ngx-pagination';
