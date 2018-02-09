@@ -21,28 +21,25 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
-	
-	@Autowired
-	private CustomerInvoicesController customerInvoicesController; 
 
 	@RequestMapping(method = RequestMethod.GET)
 	public CustomerVO getUser(@PathVariable("id") Integer id) {
-		return customerService.getCustomerById(id);
+		return customerService.getCustomerById(id, CustomerVO.class);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public CustomerVO createUser(@Valid @RequestBody CreateCustomerVO userVO) {
-		return customerService.createCustomer(userVO);
+		return customerService.createCustomer(userVO, CustomerVO.class);
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
 	public CustomerVO updateUser(@RequestBody CustomerVO updateUserVO) {
-		return customerService.updateCustomer(updateUserVO);
+		return customerService.updateCustomer(updateUserVO, CustomerVO.class);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("id") Integer id) {
 		customerService.deleteUser(id);
 		return "OK";
-	}	
+	}
 }

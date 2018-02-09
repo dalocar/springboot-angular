@@ -8,18 +8,18 @@ import com.carrascolimited.springboot.vo.CustomerVO;
 
 public interface CustomerService {
 
-	CustomerVO getCustomerById(Integer id);
+	<T> T getCustomerById(Integer id, Class<T> targetVO);
 
-	CustomerVO createCustomer(CreateCustomerVO user);
+	<T> T createCustomer(CreateCustomerVO user, Class<T> targetVO);
 
-	CustomerVO updateCustomer(CustomerVO user);
+	<T> T updateCustomer(CustomerVO user, Class<T> targetVO);
 
 	void deleteUser(Integer id);
 
-	List<CustomerVO> findAll();	
+	<T> List<T> findAll(Class<T> targetVO);
 
-	CustomerListVO findCustomers(int page, int size, String sortColumn, String sortDirection);
+	<T> CustomerListVO<T> findCustomers(int page, int size, String sortColumn, String sortDirection, Class<T> targetVO);
 
-	List<CustomerVO> findFiltered(String filter);
+	<T> List<T> findFiltered(String filter, Class<T> targetVO);
 
 }

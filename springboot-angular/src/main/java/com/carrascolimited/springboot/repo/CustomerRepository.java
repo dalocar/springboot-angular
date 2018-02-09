@@ -14,5 +14,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	
 	Page<Customer> findByActiveTrue(Pageable pageable);
 	
-	List<Customer> findByNameContainingOrAddressContainingAllIgnoreCase(String name, String address);
+	List<Customer> findByNameContainingOrAddressContainingAllIgnoreCaseOrderByNameAsc(String name, String address);
 }

@@ -27,8 +27,9 @@ export class UserCreateComponent implements OnInit {
       email: new FormControl('', [
         Validators.required,
         Validators.pattern('[^ @]*@[^ @]*')
-      ])
-    });    
+      ]),
+      password: new FormControl('', Validators.required),
+    });
   }
 
   ngOnInit() {
@@ -63,14 +64,16 @@ export class UserCreateComponent implements OnInit {
           this.userForm.controls['firstName'].value,
           this.userForm.controls['lastName'].value,
           this.userForm.controls['userName'].value,
-          this.userForm.controls['email'].value);
+          this.userForm.controls['email'].value,
+          this.userForm.controls['password'].value);
         this.userService.updateUser(user).subscribe();
       } else {
         const user: User = new User(null,
           this.userForm.controls['firstName'].value,
           this.userForm.controls['lastName'].value,
           this.userForm.controls['userName'].value,
-          this.userForm.controls['email'].value);
+          this.userForm.controls['email'].value,
+          this.userForm.controls['password'].value);
         this.userService.saveUser(user).subscribe();
       }
       this.userForm.reset();

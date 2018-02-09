@@ -11,7 +11,7 @@
 		</mat-card-title> 
 	</mat-card-header>
 	<mat-card-content>
-		<mat-form-field class="field-25-width">
+		<mat-form-field class="field-full-width">
 			<input matInput  placeholder="Id"  type="text" class="form-control" [readOnly] [value]="id">
 		</mat-form-field>
 		<mat-form-field class="field-25-width">
@@ -20,11 +20,14 @@
 		<mat-form-field class="field-25-width">			
 			<input  matInput placeholder="Apellidos"  type="text" class="form-control" formControlName="lastName">
 		</mat-form-field>
-		<mat-form-field class="field-25-width">
+		<mat-form-field class="field-full-width">
 			<input matInput placeholder="E-Mail" type="email" class="form-control" formControlName="email">
 		</mat-form-field>
-		<mat-form-field class="field-25-width">			 
+		<mat-form-field class="field-full-width">			 
 			<input matInput placeholder="Login"  type="text" class="form-control" formControlName="userName">
+		</mat-form-field>
+		<mat-form-field class="field-25-width">			 
+			<input matInput placeholder="Password"  type="text" class="form-control" formControlName="password">
 		</mat-form-field>
 	</mat-card-content>
 	<mat-card-actions>

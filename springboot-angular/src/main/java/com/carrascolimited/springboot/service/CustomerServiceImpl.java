@@ -29,20 +29,23 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	public CustomerVO getCustomerById(Integer id) {
+	@Override
+	public <T> T getCustomerById(Integer id, Class<T> targetVO) {
 		Customer customer = customerRepository.findOne(id);
 		if (customer == null) {
 			throw new ResourceNotFoundException(id, "customer not found");
 		}
-		return customerAssembler.toCustomerVO(customer);
+		return customerAssembler.toCustomerVO(customer, targetVO);
 	}
 
-	public CustomerVO createCustomer(CreateCustomerVO createCustomer) {
+	@Override
+	public <T> T createCustomer(CreateCustomerVO createCustomer, Class<T> targetVO) {
 		Customer customer = customerAssembler.toCustomer(createCustomer);
-		return customerAssembler.toCustomerVO(customerRepository.save(customer));
+		return customerAssembler.toCustomerVO(customerRepository.save(customer), targetVO);
 	}
 
-	public CustomerVO updateCustomer(CustomerVO updateCustomer) {
+	@Override
+	public <T> T updateCustomer(CustomerVO updateCustomer, Class<T> targetVO) {
 		Customer customer = customerRepository.getOne(updateCustomer.getId());
 		try {
 			customer.setAddress(updateCustomer.getAddress());
@@ -57,7 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
 		} catch (Exception e) {
 			log.error("Illegal Access exception", e);
 		}
-		return customerAssembler.toCustomerVO(customerRepository.save(customer));
+		return customerAssembler.toCustomerVO(customerRepository.save(customer), targetVO);
 	}
 
 	public void deleteUser(Integer id) {
@@ -68,33 +71,35 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
-	public List<CustomerVO> findAll() {
-		List<CustomerVO> result = new ArrayList<>();
-		customerRepository.findAll().forEach(u -> result.add(customerAssembler.toCustomerVO(u)));
+	@Override
+	public <T> List<T> findAll(Class<T> targetVO) {
+		List<T> result = new ArrayList<>();
+		customerRepository.findAll().forEach(u -> result.add(customerAssembler.toCustomerVO(u, targetVO)));
 		return result;
 	}
 
 	@Override
-	public CustomerListVO findCustomers(int page, int size, String sortColumn, String sortDirection) {
+	public <T> CustomerListVO findCustomers(int page, int size, String sortColumn, String sortDirection,
+			Class<T> targetVO) {
 		CustomerListVO customerListVO = new CustomerListVO();
-		List<CustomerVO> result = new ArrayList<>();
+		List<T> result = new ArrayList<>();
 		Direction direction = Direction.ASC;
 		if (sortDirection.toLowerCase().equals("desc")) {
 			direction = Direction.DESC;
 		}
 		Page<Customer> activeCustomers = customerRepository
 				.findByActiveTrue(new PageRequest(page, size, direction, sortColumn));
-		activeCustomers.forEach(u -> result.add(customerAssembler.toCustomerVO(u)));
+		activeCustomers.forEach(u -> result.add(customerAssembler.toCustomerVO(u, targetVO)));
 		customerListVO.setCustomers(result);
 		customerListVO.setTotal(activeCustomers.getTotalElements());
 		return customerListVO;
 	}
 
 	@Override
-	public List<CustomerVO> findFiltered(String filter) {
-		List<CustomerVO> result = new ArrayList<>();
-		customerRepository.findByNameContainingOrAddressContainingAllIgnoreCase(filter, filter)
-				.forEach(u -> result.add(customerAssembler.toCustomerVO(u)));
+	public <T> List<T> findFiltered(String filter, Class<T> targetVO) {
+		List<T> result = new ArrayList<>();
+		customerRepository.findByNameContainingOrAddressContainingAllIgnoreCaseOrderByNameAsc(filter, filter)
+				.forEach(u -> result.add(customerAssembler.toCustomerVO(u, targetVO)));
 		return result;
 	}
 }

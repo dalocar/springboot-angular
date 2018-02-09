@@ -50,8 +50,8 @@ export class CustomerCreateComponent implements AfterViewInit {
       showInList: new FormControl(''),
     });
     this.dataSource = new MatTableDataSource<Invoice>([]);
-    this.currentPage= 0;
-    this.currentTab= 0;
+    this.currentPage = 0;
+    this.currentTab = 0;
   }
 
 
@@ -59,39 +59,38 @@ export class CustomerCreateComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.sub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.customerService.findById(this.id).subscribe(
-        customer => {
-          // this.id = customer.id;
-          this.customerForm.patchValue({
-            id: this.id,
-            name: customer.name,
-            address: customer.address,
-            cif: customer.cif,
-            city: customer.city,
-            fax: customer.fax,
-            phone: customer.phone,
-            postCode: customer.postCode,
-            province: customer.province,
-            showInList: customer.showInList
-          });
-          this.customerService.invoicingYears(customer.id).subscribe(years => {
-            this.years = years;
-            this.currentTab = years[0];
-            this.invoiceService.findByYearAndCustomerId(years[0], customer.id, 0, 5).subscribe(
-              invoices => {
-                this.dataSource = new MatTableDataSource<Invoice>(invoices.invoices);
-                this.paginator.length = invoices.total;
-              }, error => {
-                this.dataSource = new MatTableDataSource<Invoice>([]);
-                this.paginator.length = 0;
-              });
-          });
-          console.log(this.dataSource);
-        }, error => {
-          this.router.navigate(['login']);
-          console.log(error);
-        }
-      );
+      if (this.id) {
+        this.customerService.findById(this.id).subscribe(
+          customer => {
+            this.customerForm.patchValue({
+              id: this.id,
+              name: customer.name,
+              address: customer.address,
+              cif: customer.cif,
+              city: customer.city,
+              fax: customer.fax,
+              phone: customer.phone,
+              postCode: customer.postCode,
+              province: customer.province,
+              showInList: customer.showInList
+            });
+            this.customerService.invoicingYears(customer.id).subscribe(years => {
+              this.years = years;
+              this.currentTab = years[0];
+              this.invoiceService.findByYearAndCustomerId(years[0], customer.id, 0, 5).subscribe(
+                invoices => {
+                  this.dataSource = new MatTableDataSource<Invoice>(invoices.invoices);
+                  this.paginator.length = invoices.total;
+                }, error => {
+                  this.dataSource = new MatTableDataSource<Invoice>([]);
+                  this.paginator.length = 0;
+                });
+            });
+          }, error => {
+            console.log('Error occured: ' + error);
+          }
+        );
+      }
     });
 
     this.cd.detectChanges();

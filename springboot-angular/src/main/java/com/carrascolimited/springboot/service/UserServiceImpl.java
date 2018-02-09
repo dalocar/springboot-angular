@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.belikesoftware.security.repository.UserAuthRepository;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements UserService {
 		user.setLastName(updateUser.getLastName());
 		user.setUsername(updateUser.getUserName());
 		user.setEmail(updateUser.getEmail());
+		user.setPassword(new BCryptPasswordEncoder().encode(updateUser.getPassword()));
 		user.setUpdated(Date.valueOf(LocalDate.now()));
 		return userAssembler.toUserVO(userRepository.save(user));
 	}

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import com.carrascolimited.springboot.domain.Customer;
 import com.carrascolimited.springboot.service.DozerService;
 import com.carrascolimited.springboot.vo.CreateCustomerVO;
-import com.carrascolimited.springboot.vo.CustomerVO;
 
 import lombok.Data;
 
@@ -33,8 +32,8 @@ public class CustomerAssembler {
 	 * @param user
 	 * @return
 	 */
-	public CustomerVO toCustomerVO(Customer customer) {
-		return dozerService.map(customer, CustomerVO.class);
+	public <T> T toCustomerVO(Customer customer, Class<T> targetClassVO) {
+		return dozerService.map(customer, targetClassVO);
 	}
 
 }

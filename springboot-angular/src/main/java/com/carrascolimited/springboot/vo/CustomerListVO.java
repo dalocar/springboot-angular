@@ -8,9 +8,9 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class CustomerListVO {
+public class CustomerListVO<T> {
 
 	private Long total;
-	private List<CustomerVO> customers = new ArrayList<>();
+	private List<T> customers = new ArrayList<>();
 
 }

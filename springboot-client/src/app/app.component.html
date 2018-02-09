@@ -10,7 +10,7 @@
 		</button>	
 	<mat-form-field class="field-full-width">
     	  <input matInput (keyup)="applyFilter($event.target.value)" >
-    	  <mat-placeholder color="#FFFFFF">Buscar</mat-placeholder>
+    	  <mat-placeholder>Buscar</mat-placeholder>
     </mat-form-field>	
 		<button mat-icon-button style="float:right">
   			<mat-icon>search</mat-icon>
@@ -18,11 +18,11 @@
 		<button mat-icon-button (click)="sidenav.toggle()" style="float:right"><mat-icon>chevron_left</mat-icon></button>
 		
 		<mat-menu #menu="matMenu">
-  			<button mat-menu-item (click)="selectCategory('users')">
+  			<button mat-menu-item (click)="selectCategory('users')" [matMenuTriggerFor]="matMenuUsers">
   				<mat-icon>account_box</mat-icon>
   				<span>Usuarios</span>
   			</button>
-  			<button mat-menu-item (click)="selectCategory('customers')">
+  			<button mat-menu-item (click)="selectCategory('customers')" [matMenuTriggerFor]="matMenuCustomers">
   				<mat-icon>store</mat-icon>
   				<span>Clientes</span>
   			</button>  	
@@ -30,6 +30,18 @@
   				<mat-icon>lock_open</mat-icon>
   				<span>Salir</span>
   			</button> 	
+		</mat-menu>
+		<mat-menu #matMenuUsers>
+			<button mat-menu-item routerLink="/users/create">
+  				<mat-icon>add</mat-icon>
+  				<span>Nuevo</span>
+  			</button>  	
+		</mat-menu>
+		<mat-menu #matMenuCustomers>
+			<button mat-menu-item routerLink="/customers/create">
+  				<mat-icon>add</mat-icon>
+  				<span>Nuevo</span>
+  			</button>  	
 		</mat-menu>
 	</mat-toolbar> 	
 	<mat-list role="list" *ngIf="selected == 'users'">		  		

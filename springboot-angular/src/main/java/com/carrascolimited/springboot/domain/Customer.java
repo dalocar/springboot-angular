@@ -12,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -56,8 +59,8 @@ public class Customer {
 	@Column(name = "activo")
 	private boolean active;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "customer")
-//	@LazyCollection(LazyCollectionOption.EXTRA)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	private List<Invoice> invoices = new ArrayList<>();
 
 }

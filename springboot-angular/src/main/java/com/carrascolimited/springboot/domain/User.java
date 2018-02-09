@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,7 +18,8 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = { @UniqueConstraint(columnNames="email"), 
+		@UniqueConstraint(columnNames = "username")})
 @Data
 @Accessors(chain = true)
 public class User implements Serializable {
@@ -35,12 +37,12 @@ public class User implements Serializable {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "username")
+	@Column(name = "username", unique = true)
 	private String username;
-	
-	@Column(name = "email")
+
+	@Column(name = "email", unique = true)
 	private String email;
-	
+
 	@Column(name = "created")
 	@CreationTimestamp
 	private Date created;
@@ -48,5 +50,8 @@ public class User implements Serializable {
 	@Column(name = "updated")
 	@UpdateTimestamp
 	private Date updated;
+
+	@Column(name = "password")
+	private String password;
 
 }

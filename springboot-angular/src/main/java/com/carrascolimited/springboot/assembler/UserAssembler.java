@@ -1,5 +1,6 @@
 package com.carrascolimited.springboot.assembler;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.carrascolimited.springboot.domain.User;
@@ -23,6 +24,7 @@ public class UserAssembler {
 		user.setLastName(createUserVO.getLastName());
 		user.setUsername(createUserVO.getUserName());
 		user.setEmail(createUserVO.getEmail());
+		user.setPassword(new BCryptPasswordEncoder().encode(createUserVO.getPassword()));
 		return user;
 	}
 
@@ -57,6 +59,7 @@ public class UserAssembler {
 		user.setLastName(updateUserVO.getLastName());
 		user.setUsername(updateUserVO.getUserName());
 		user.setEmail(updateUserVO.getEmail());
+		user.setPassword(new BCryptPasswordEncoder().encode(updateUserVO.getPassword()));
 		return user;
 	}
 }

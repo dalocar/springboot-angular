@@ -16,6 +16,8 @@ public class CreateUserVO {
 	private String lastName;
 	@NotNull(message = "email can not be null.")
 	private String email;
+	@NotNull(message = "password can not be null.")
+	private String password;
 	
 	@Username(message = "invalid username.")
 	private String userName;
